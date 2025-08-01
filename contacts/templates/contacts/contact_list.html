@@ -1,0 +1,69 @@
+{% extends "contacts/base.html" %}
+{% comment %} {% extends "contacts/base.html" %}
+
+{%block title %} List Of Contacts{%endblock%}
+{% block content %}
+    <p>Here are list of Contacts:</p>
+    <hr />
+    <a href="{% url 'add_contact' %}">Add New Contact</a>
+
+    <ul>
+      {% for contact in list_contacts %}
+      <li>
+        {{ contact.first_name }} {{ contact.last_name }} — {{ contact.phone_number }}
+
+        <!-- Edit and Delete Buttons -->
+        <a href="{% url 'edit_contact' contact.id %}">Edit</a> 
+        <a href="{% url 'delete_contact' contact.id %}">Delete</a>
+      </li>
+      {% empty %}
+      <p>No contacts found "{{ request.GET.q }}"</p>
+      {% endfor %}
+    </ul> 
+{% endblock  %} {% endcomment %}
+
+
+
+{% block title %}List of Contacts{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3>Contacts</h3>
+    <a href="{% url 'add_contact' %}" class="btn btn-success">+ Add New Contact</a>
+  </div>
+
+  {% if list_contacts %}
+    <div class="row">
+      {% for contact in list_contacts %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ contact.first_name }} {{ contact.last_name }}</h5>
+            <p class="card-text">
+              <strong>Phone:</strong> {{ contact.phone_number }}<br>
+              <strong>Email:</strong> {{ contact.email }}<br>
+              <strong>Address:</strong> {{ contact.address }}
+            </p>
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'edit_contact' contact.id %}" class="btn btn-primary btn-sm">Edit</a>
+              <a href="{% url 'delete_contact' contact.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-warning">
+      No contacts found{% if request.GET.q %} for "{{ request.GET.q }}"{% endif %}.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+{% extends "contacts/base.html" %}
+{% block title %} Edit Contact{% endblock title %}
+{% block content %}
+<h2>Edit Contact</h2>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class='btn btn-primary'>Update Contact</button>
+    </form>
+{% endblock content %}
+
+
+{% comment %} <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Contact</title>
+  </head>
+  <body>
+    <h2>Edit Contact</h2>
+    <form method="post">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Update</button>
+    </form>
+  </body>
+</html> {% endcomment %}
